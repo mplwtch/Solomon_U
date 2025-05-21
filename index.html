@@ -30,10 +30,10 @@
             <p><a href="https://mplwtch.github.io/Solomon/">Solomon難易度表</a>で扱いきれなかったst13以上の難しすぎる譜面達</p>            
         </div>
 
-
-        <!--ここから難易度表本体-->
+　　　　 <!--ここから難易度表本体-->
+        
         <div>
-            <table class="table table-light table-striped table-hover" id="table_int">
+            <table class="table table-light table-striped table-hover table-sm" id="table_int">
             </table>
         </div>
         <script language="javascript" type="text/javascript">
@@ -52,13 +52,13 @@
                 var obj = $("#table_int");
 
                 obj.html("");
-                $("<thead class='table-dark'><tr><th>Level</th><th>Title</th><th>Artist</th><th>Comment</th></tr></thead><tbody>")
+                $("<thead class='table-dark'><tr><th>Level</th><th>Title</th><th>SongArtist</th><th>Charter</th><th>ChartView</th></tr></thead><tbody>")
                     .appendTo(obj);
                 var obj_sep = null;
                 for (var i = 0; i < info.length; i++) {
                     if (x != info[i].level) {
                         if (obj_sep != null) {
-                            obj_sep.html("<td colspan='4'>" + "<b>" + mark + x + " (" + count +
+                            obj_sep.html("<td colspan='5'>" + "<b>" + mark + x + " (" + count +
                                 "譜面)</b></td>");
                         }
                         obj_sep = $("<tr class='table-dark' style='text-align:center' id='" + mark + info[i].level +
@@ -74,24 +74,30 @@
                     $("<td width='5%'>" + mark + x + "</td>").appendTo(str);
 
                     // Title
-                    $("<td width='45%'>" +
+                    $("<td width='35%'>" +
                         "<a href='http://www.dream-pro.info/~lavalse/LR2IR/search.cgi?mode=ranking&bmsmd5=" + info[
                             i]
                         .md5 + "' target='_blank'>" + info[i].title + "</a></td>").appendTo(str);
 
                     // Artist
-                    $("<td width='40%'>" + info[i].artist + "</td>").appendTo(str);
+                    $("<td width='25%'>" + info[i].song_artist + "</td>").appendTo(str);
+                    
+                    // Charter
+                    $("<td width='25%'>" + info[i].charter + "</td>").appendTo(str);
 
-                    // Comment
-                    $("<td width='10%'>" + info[i].comment + "</td>").appendTo(str);
+                    // 譜面画像
+                    $("<td width='10%'>" +
+                        "<a href='https://bms-score-viewer.pages.dev/view?md5=" + info[
+                            i]
+                        .md5 + "' target='_blank'>" + "譜面画像" + "</a></td>").appendTo(str);
+                    
                     str.appendTo(obj);
                     count++;
-
                 }
                 $("</tbody>").appendTo(obj);
 
                 if (obj_sep != null) {
-                    obj_sep.html("<td class='table-dark' style='text-align:center' colspan='4'>" + "<b>" + mark + x +
+                    obj_sep.html("<td class='table-dark' style='text-align:center' colspan='5'>" + "<b>" + mark + x +
                         " (" + count + "譜面)</b></td>");
                 }
             }
