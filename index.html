@@ -33,7 +33,6 @@
         </div>
 
 　　　　 <!--ここから難易度表本体-->
-        
         <div>
             <table class="table table-light table-striped table-hover table-sm" id="table_int">
             </table>
@@ -54,13 +53,13 @@
                 var obj = $("#table_int");
 
                 obj.html("");
-                $("<thead class='table-dark'><tr><th>Level</th><th>Title</th><th>SongArtist</th><th>Charter</th><th>ChartView</th></tr></thead><tbody>")
+                $("<thead class='table-dark'><tr><th>Level</th><th>Title</th><th>SongArtist</th><th>Charter</th><th>Download</th><th>ChartView</th></tr></thead><tbody>")
                     .appendTo(obj);
                 var obj_sep = null;
                 for (var i = 0; i < info.length; i++) {
                     if (x != info[i].level) {
                         if (obj_sep != null) {
-                            obj_sep.html("<td colspan='5'>" + "<b>" + mark + x + " (" + count +
+                            obj_sep.html("<td colspan='6'>" + "<b>" + mark + x + " (" + count +
                                 "譜面)</b></td>");
                         }
                         obj_sep = $("<tr class='table-dark' style='text-align:center' id='" + mark + info[i].level +
@@ -76,17 +75,40 @@
                     $("<td width='5%'>" + mark + x + "</td>").appendTo(str);
 
                     // Title
-                    $("<td width='35%'>" +
+                    $("<td width='30%'>" +
                         "<a href='http://www.dream-pro.info/~lavalse/LR2IR/search.cgi?mode=ranking&bmsmd5=" + info[
                             i]
                         .md5 + "' target='_blank'>" + info[i].title + "</a></td>").appendTo(str);
 
                     // Artist
-                    $("<td width='25%'>" + info[i].song_artist + "</td>").appendTo(str);
+                    $("<td width='13%'>" + info[i].song_artist + "</td>").appendTo(str);
                     
                     // Charter
-                    $("<td width='25%'>" + info[i].charter + "</td>").appendTo(str);
+                    $("<td width='13%'>" + info[i].charter + "</td>").appendTo(str);
 
+
+                    // Download列
+                    var downloadLinks = "";
+
+                    // 本体URL
+                    if (info[i]["本体URL"] && info[i]["本体URL"].trim() !== "") {
+                        downloadLinks +=
+                            "<a href='" +
+                            info[i]["本体URL"] +
+                            "' target='_blank'>本体</a> ";
+                    }
+
+                    // 差分URL
+                    if (info[i]["差分URL"] && info[i]["差分URL"].trim() !== "") {
+                        downloadLinks +=
+                            "<a href='" +
+                            info[i]["差分URL"] +
+                            "' target='_blank'>差分</a>";
+                    }
+
+                    // Download列を追加
+                    $("<td width='13%'>" + downloadLinks + "</td>").appendTo(str);
+                    
                     // 譜面画像
                     $("<td width='10%'>" +
                         "<a href='https://bms-score-viewer.pages.dev/view?md5=" + info[
